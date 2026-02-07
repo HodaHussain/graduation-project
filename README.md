@@ -1,107 +1,141 @@
 # Voice-Controlled Smart Home (Arabic & English) – Graduation Project
 
-This project implements a Voice-Controlled Smart Home System that allows users to control home devices using spoken commands in both English and Arabic.
-The system uses OpenAI Whisper for speech-to-text, then applies an NLP-based command parser (keyword matching + optional NER/spell correction) to extract the intended action, device, and location, and finally sends the command to an ESP-based microcontroller to execute the action.
+With the rapid development of smart technologies, smart homes have become an essential part of modern life. Voice-based interaction offers a natural and hands-free way to control home devices, improving both comfort and accessibility.
+This graduation project presents a Voice Controlled Smart Home System that allows users to monitor and control home appliances through a mobile application and voice commands, integrated with IoT hardware.
 
-# Key Features
+# Project Objective
 
-Real-time voice command recording from microphone
+The main objectives of this project are:
 
-Speech-to-text transcription using Whisper (medium model)
+To design a smart home system controlled using voice commands
 
-Bilingual support: English & Arabic
+To provide a mobile application for monitoring and controlling devices
 
-Command understanding through:
+To enable secure access through user authentication
 
-Keyword matching (Actions / Devices / Locations)
+To integrate speech processing with IoT hardware
 
-Spell correction (English & Arabic)
+To build a scalable system that supports future enhancements
 
-Named Entity Recognition (NER) for Arabic (MARBERTv2 / mBERT)
+# System Overview
 
-Command formatting and sending to ESP (ESP32/ESP8266) for device control
+The system consists of three main components:
 
-Modular implementation (split into multiple files) + Flutter application integration
+1- Mobile Application (Flutter)
 
-# System Pipeline
+2- Voice Processing & Control Logic (Python)
 
-## 1-Voice Capture
+3- IoT Hardware Layer (ESP-based controller)
 
-Record audio from microphone (sounddevice, wave)
+The user interacts with the system through the mobile application, which displays the current state of all connected devices and allows voice-based control.
 
-## 2-Speech Recognition (ASR)
+# Mobile Application
 
-Transcribe speech using Whisper → output text
+The mobile application is responsible for user interaction and system control.
 
-## 3-Text Processing & NLP
+### Features:
 
-Normalize text (remove punctuation, lowercase)
+User Authentication
 
-Tokenization (nltk)
+Login using email and password
 
-Spell correction:
+### Device Dashboard
 
-English: autocorrect.Speller
+Displays all connected devices
 
-Arabic: pyspellchecker
+Shows the current status of each device (ON / OFF)
 
-Extract:
+### Voice Control
 
-Action (open/close/increase/decrease…)
+Allows the user to record voice commands
 
-Device (light/fan/door/curtain/camera…)
+Sends commands to the control system for processing
 
-Location (kitchen/bathroom/room/living room/garage…)
+The application is designed with a simple and user-friendly interface to ensure ease of use.
 
-Optional Arabic NER using Transformers (MARBERTv2 or mBERT)
+# Voice Control System
 
-## 4-IoT Execution
+The voice control module handles speech input and command understanding.
 
-Build a structured command (e.g., open light kitchen)
+### Workflow:
 
-Send the command to the ESP module to control relays/devices
+1- The user records a voice command
 
-# Technologies Used
-## 1- Software
+2- The audio is processed and converted to text
 
-Python
+3- The command text is analyzed to extract:
 
-whisper, transformers, nltk, sounddevice, librosa (optional), numpy
+Action (e.g., turn on, turn off)
 
-Flutter (Mobile UI / Smart Home interface)
+Device (e.g., light, fan)
 
-C++ (ESP firmware)
+Location (e.g., kitchen, room)
 
-## 2- Hardware
+4- The extracted command is converted into a structured format
+
+5- The command is sent to the IoT controller for execution
+
+The system is designed to support both English and Arabic voice commands, making it more flexible and user-friendly.
+
+# IoT Hardware Layer
+
+The hardware layer is responsible for executing the commands received from the control system.
+
+## Components:
 
 ESP-based microcontroller (ESP32 / ESP8266)
 
-Relays + connected home appliances (lights, fan, etc.)
+Relays connected to home appliances
 
-# Supported Commands (Examples)
+Devices such as lights and fans
 
-## English:
+## Functionality:
 
-“Turn on the kitchen lights”
+Receives control commands from the application
 
-“Close the door”
+Turns devices ON or OFF accordingly
 
-“Increase fan speed in the living room”
+Updates the device status to reflect the current state
 
-## Arabic:
+The hardware is programmed using C++ and follows a modular design to allow easy expansion.
 
-“شغل نور المطبخ”
+# Technologies Used
+## Software:
 
-“اقفل الباب”
+Flutter – Mobile application development
 
-“زود سرعة المروحة في الصالة”
+Python – Voice processing and command handling
+
+Speech-to-Text & NLP libraries
+
+C++ / Arduino Framework – ESP programming
+
+## Hardware:
+
+ESP-based microcontroller
+
+Relays and connected smart devices
+
+# System Advantages
+
+Hands-free smart home control
+
+Simple and intuitive user interface
+
+Secure user authentication
+
+Real-time device status monitoring
+
+Scalable design for adding more devices
 
 # Future Work
 
-Improve Arabic understanding for dialect variations
+The system is designed to support future enhancements, including:
 
-Add more devices and automation scenarios (modes, schedules)
+Integration of smart cameras for home monitoring
 
-Integrate cloud logging and user profiles
+Implementing voice biometric authentication (voice fingerprint) for secure access
 
-Add offline ASR option for low-resource devices
+Adding more smart home devices
+
+Expanding automation scenarios and smart modes
